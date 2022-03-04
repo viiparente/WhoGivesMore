@@ -18,6 +18,6 @@ API REST completa em .NET de gerenciamento de leilão, onde pode apresentar bens
 
 ---
 ### Principais Funcionalidades
-* Cadastro, Listagem, Detalhes, Atualização e Remoção de Leilão.
+* Cadastro, Listagem, Detalhes, Atualização e Remoção de Leilão do bem.
 * Cadastro e atualização de Usuários e de perfis Leiloeiros e Arrematante
-* Geração de dados para relatório de balanço energético
+
