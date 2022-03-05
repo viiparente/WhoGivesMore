@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WhoGivesMore.Core.Entities
 {
-    public class Move : BaseEntity
+    public class Bid : BaseEntity
     {
         public decimal Amount { get; set; }
 

@@ -20,7 +20,7 @@
             OwnedItems = new List<Item>();
             ItemsSold = new List<Item>();
 
-            Moves = new List<Move>();
+            Bids = new List<Bid>();
         }
 
         public string FullName { get; private set; }
@@ -34,7 +34,7 @@
 
         public List<Item> OwnedItems { get; private set; }
         public List<Item> ItemsSold { get; set; }
-        public List<Move> Moves { get; private set; }
+        public List<Bid> Bids { get; private set; }
 
 
         public void Update(string fullName, string email, DateTime? birthDate)

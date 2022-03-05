@@ -1,6 +1,6 @@
-﻿namespace WhoGivesMore.Api.Models.Move
+﻿namespace WhoGivesMore.Api.Models.Bid
 {
-    public class CreateMoveModel
+    public class CreateBidModel
     {
         public decimal Amount { get; set; }
 

@@ -29,7 +29,7 @@ namespace WhoGivesMore.Core.Entities
 
             Status = ItemStatusEnum.Created;
 
-            Moves = new List<Move>();
+            Bids = new List<Bid>();
 
             LastModifiedBy = userId;
             LastModified = DateTime.Now;
@@ -52,7 +52,7 @@ namespace WhoGivesMore.Core.Entities
         public DateTime? LastModified { get; private set; }
         public string CreatedBy { get; private set; }
 
-        List<Move> Moves { get; set; }
+        List<Bid> Bids { get; set; }
 
         public string UserId { get; private set; }
         public User User { get; private set; }

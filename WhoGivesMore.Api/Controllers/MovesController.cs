@@ -1,21 +1,21 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using WhoGivesMore.Api.Models.Move;
+using WhoGivesMore.Api.Models.Bid;
 
 namespace WhoGivesMore.Api.Controllers
 {
-    [Route("api/moves")]
+    [Route("api/bids")]
     [ApiController]
-    public class MovesController : ControllerBase
+    public class BidsController : ControllerBase
     {
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] CreateMoveModel model)
+        public async Task<IActionResult> Post([FromBody] CreateBidModel model)
         {
             return NoContent();
         }
 
-        [HttpGet("getHighestMove/{itemId?}")]
-        public async Task<IActionResult> GetHighestMove(int itemId)
+        [HttpGet("getHighestBid/{itemId?}")]
+        public async Task<IActionResult> GetHighestBid(int itemId)
         {
             return Ok();
         }
