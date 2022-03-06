@@ -18,14 +18,13 @@
 
 
             OwnedItems = new List<Item>();
-            ItemsSold = new List<Item>();
-
+            ItemsBidding = new List<Item>();
             Bids = new List<Bid>();
         }
 
         public string FullName { get; private set; }
         public string Email { get; private set; }
-        public DateTime? BirthDate { get; private set; }
+        public DateTime BirthDate { get; set; }
         public DateTime CreatedAt { get; private set; }
         public bool Active { get; set; }
         public string Password { get; private set; }
@@ -33,11 +32,11 @@
 
 
         public List<Item> OwnedItems { get; private set; }
-        public List<Item> ItemsSold { get; set; }
+        public List<Item> ItemsBidding { get; set; }
         public List<Bid> Bids { get; private set; }
 
 
-        public void Update(string fullName, string email, DateTime? birthDate)
+        public void Update(string fullName, string email, DateTime birthDate)
         {
             FullName = fullName;
             Email = email;

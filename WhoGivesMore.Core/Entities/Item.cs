@@ -15,7 +15,7 @@ namespace WhoGivesMore.Core.Entities
                     decimal minIncrease,
                     DateTime startTime,
                     DateTime endTime,
-                    string userId)
+                    int IdOwner)
         {
             Title = title;
             Description = description;
@@ -25,43 +25,42 @@ namespace WhoGivesMore.Core.Entities
             StartTime = startTime;
             EndTime = endTime;
 
-            UserId = userId;
 
+            CreatedBy = IdOwner;
+            LastModified = DateTime.Now;
             Status = ItemStatusEnum.Created;
 
             Bids = new List<Bid>();
-
-            LastModifiedBy = userId;
-            LastModified = DateTime.Now;
-            CreatedBy = userId;
         }
 
 
         public string Title { get; private set; }
         public string Description { get; private set; }
+        public int CreatedBy { get; private set; }
         public decimal StartingPrice { get; private set; }
         public decimal MinIncrease { get; private set; }
-
         public DateTime CreatedAt { get; private set; }
         public DateTime StartTime { get; private set; }
         public DateTime EndTime { get; private set; }
+        public DateTime? LastModified { get; private set; }
+        public int LastModifiedBy { get; private set; }
         public ItemStatusEnum Status { get; private set; }
 
 
-        public string LastModifiedBy { get; private set; }
-        public DateTime? LastModified { get; private set; }
-        public string CreatedBy { get; private set; }
-
-        List<Bid> Bids { get; set; }
-
-        public string UserId { get; private set; }
-        public User User { get; private set; }
+        public int IdBid { get; private set; }
+        public List<Bid> Bids { get; private set; }
 
 
+        public int IdBidder { get; private set; }
+        public User Bidder { get; private set; }
+
+
+        public int IdOwner { get; private set; }
+        public User Owner { get; private set; }
 
 
 
-        public void Update(string title, string description, decimal startingPrice, decimal minIncrease, DateTime startTime, DateTime endTime, string userId)
+        public void Update(string title, string description, decimal startingPrice, decimal minIncrease, DateTime startTime, DateTime endTime, int IdOwner)
         {
             Title = title;
             Description = description;
@@ -70,7 +69,7 @@ namespace WhoGivesMore.Core.Entities
             StartTime = startTime;
             EndTime = endTime;
 
-            LastModifiedBy = userId;
+            LastModifiedBy = IdOwner;
             LastModified = DateTime.Now;
         }
 
