@@ -15,7 +15,7 @@ namespace WhoGivesMore.Core.Entities
                     decimal minIncrease,
                     DateTime startTime,
                     DateTime endTime,
-                    int IdOwner)
+                    int idOwner)
         {
             Title = title;
             Description = description;
@@ -26,7 +26,7 @@ namespace WhoGivesMore.Core.Entities
             EndTime = endTime;
 
 
-            CreatedBy = IdOwner;
+            CreatedBy = idOwner;
             LastModified = DateTime.Now;
             Status = ItemStatusEnum.Created;
 
@@ -58,9 +58,19 @@ namespace WhoGivesMore.Core.Entities
         public int IdOwner { get; private set; }
         public User Owner { get; private set; }
 
+        public void Start()
+        {
+            if (ItemStatusEnum.Created == Status)
+            {
+                if (StartTime.Ticks >= DateTime.Now.Ticks)
+                {
+                    Status = ItemStatusEnum.InProgress;
+                    //TODO: Verificar
+                }
+            }
+        }
 
-
-        public void Update(string title, string description, decimal startingPrice, decimal minIncrease, DateTime startTime, DateTime endTime, int IdOwner)
+        public void Update(string title, string description, decimal startingPrice, decimal minIncrease, DateTime startTime, DateTime endTime, int idOwner)
         {
             Title = title;
             Description = description;
@@ -69,7 +79,7 @@ namespace WhoGivesMore.Core.Entities
             StartTime = startTime;
             EndTime = endTime;
 
-            LastModifiedBy = IdOwner;
+            LastModifiedBy = idOwner;
             LastModified = DateTime.Now;
         }
 

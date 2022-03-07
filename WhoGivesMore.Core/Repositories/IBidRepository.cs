@@ -11,7 +11,7 @@ namespace WhoGivesMore.Core.Repositories
     {
         Task<List<Bid>> GetAllAsync();
         Task AddAsync(Bid bid);
-        Task <bool> IsEligibleForBid();
+        Task <bool> IsEligibleForBid(int IdItem);
         Task SaveChangesAsync();
     }
 }

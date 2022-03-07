@@ -1,18 +1,27 @@
-﻿using WhoGivesMore.Core.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using WhoGivesMore.Core.Entities;
 using WhoGivesMore.Core.Repositories;
 
 namespace WhoGivesMore.Infrastructure.Persistence.Repositories
 {
     public class UserRepository : IUserRepository
     {
-        public Task<User> GetByIdAsync(int id)
+        private readonly WhoGivesMoreDbContext _dbContext;
+        public UserRepository(WhoGivesMoreDbContext dbContext)
         {
-            throw new NotImplementedException();
+            _dbContext = dbContext;
         }
 
-        public Task<User> GetUserByEmailAndPasswordAsync(string email, string passwordHash)
+        public async Task<User> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            return await _dbContext.Users.SingleOrDefaultAsync(u => u.Id == id);
+        }
+
+        public async Task<User> GetUserByEmailAndPasswordAsync(string email, string passwordHash)
+        {
+            return await _dbContext
+                .Users
+                .SingleOrDefaultAsync(u => u.Email == email && u.Password == passwordHash);
         }
     }
 }

@@ -1,53 +1,80 @@
-﻿using WhoGivesMore.Core.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using WhoGivesMore.Core.Entities;
 using WhoGivesMore.Core.Repositories;
 
 namespace WhoGivesMore.Infrastructure.Persistence.Repositories
 {
     public class ItemRepository : IItemRepository
     {
-        public Task AddAsync(Item item)
+        private readonly WhoGivesMoreDbContext _dbContext;
+        private readonly string _connectionString;
+        public ItemRepository(WhoGivesMoreDbContext dbContext, IConfiguration configuration)
         {
-            throw new NotImplementedException();
+            _dbContext = dbContext;
+            _connectionString = configuration.GetConnectionString("WhoGivesMoreCs"); //Para Dapper Utilizar posteriormente 
         }
 
-        public Task AddBidAsync(Bid bid)
+
+        public async Task AddAsync(Item item)
         {
-            throw new NotImplementedException();
+            await _dbContext.Items.AddAsync(item);
+            await _dbContext.SaveChangesAsync();
         }
 
-        public Task DeleteAsync(int id)
+        public async Task AddBidAsync(Bid bid)
         {
-            throw new NotImplementedException();
+            await _dbContext.Bids.AddAsync(bid);
+            await _dbContext.SaveChangesAsync();
         }
 
-        public Task<List<Item>> GetAllAsync()
+        public async Task DeleteAsync(int id)
         {
-            throw new NotImplementedException();
+            var itemToRemove = await _dbContext.Items.SingleOrDefaultAsync(x => x.Id == id); //returns a single item.
+
+            if (itemToRemove != null)
+            {
+                _dbContext.Items.Remove(itemToRemove);
+                _dbContext.SaveChangesAsync();
+            }
         }
 
-        public Task<Item> GetByIdAsync(int id)
+        public async Task<List<Item>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            return await _dbContext.Items.ToListAsync();
         }
 
-        public Task<Item> GetDetailsByIdAsync(int id)
+        public async Task<Item> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            return await _dbContext.Items
+                .Include(b => b.Bids) //TODO: Verificar
+                .SingleOrDefaultAsync(p => p.Id == id);
         }
 
-        public Task<List<Item>> GetQueryAsync(string query)
+        public async Task<Item> GetDetailsByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            return await _dbContext.Items
+               .Include(p => p.Owner)
+               .Include(p => p.Bidder)
+               .Include(p => p.Bids) //TODO: verificar
+               .SingleOrDefaultAsync(p => p.Id == id);
         }
 
-        public Task SaveChangesAsync()
+        public async Task<List<Item>> GetQueryAsync(string query)
         {
-            throw new NotImplementedException();
+            return await _dbContext.Items.Where(b => b.Title.Equals(query, StringComparison.OrdinalIgnoreCase)).ToListAsync();
         }
 
-        public Task UpdateAsync(Item item)
+        public async Task SaveChangesAsync()
         {
-            throw new NotImplementedException();
+            await _dbContext.SaveChangesAsync();
+        }
+
+        public async Task UpdateAsync(Item item)
+        {
+            _dbContext.Items.Update(item); // TODO: Incluir o update da camada core 
+
+            await _dbContext.SaveChangesAsync();
         }
     }
 }

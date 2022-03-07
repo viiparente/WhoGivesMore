@@ -1,28 +1,35 @@
-﻿using WhoGivesMore.Core.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using WhoGivesMore.Core.Entities;
 using WhoGivesMore.Core.Repositories;
 
 namespace WhoGivesMore.Infrastructure.Persistence.Repositories
 {
     public class BidRepository : IBidRepository
     {
-        public Task AddAsync(Bid bid)
+        private readonly WhoGivesMoreDbContext _dbContext;
+        private readonly string _connectionString;
+        public BidRepository(WhoGivesMoreDbContext dbContext, IConfiguration configuration)
         {
-            throw new NotImplementedException();
+            _dbContext = dbContext;
+            _connectionString = configuration.GetConnectionString("WhoGivesMoreCs");
+        }
+        public async Task AddAsync(Bid bid)
+        {
+            await _dbContext.Bids.AddAsync(bid);
+            await _dbContext.SaveChangesAsync();
         }
 
-        public Task<List<Bid>> GetAllAsync()
+        public async Task<List<Bid>> GetAllAsync() => await _dbContext.Bids.ToListAsync();
+
+        public async Task<bool> IsEligibleForBid(int IdItem)
         {
-            throw new NotImplementedException();
+            return await _dbContext.Bids.AnyAsync(p => p.IdItem == IdItem);
         }
 
-        public Task<bool> IsEligibleForBid()
+        public async Task SaveChangesAsync()
         {
-            throw new NotImplementedException();
-        }
-
-        public Task SaveChangesAsync()
-        {
-            throw new NotImplementedException();
+            await _dbContext.SaveChangesAsync();
         }
     }
 }
