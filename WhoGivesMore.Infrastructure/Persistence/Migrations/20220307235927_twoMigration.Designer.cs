@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WhoGivesMore.Infrastructure.Persistence;
 
@@ -11,9 +12,10 @@ using WhoGivesMore.Infrastructure.Persistence;
 namespace WhoGivesMore.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(WhoGivesMoreDbContext))]
-    partial class WhoGivesMoreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220307235927_twoMigration")]
+    partial class twoMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -69,6 +71,12 @@ namespace WhoGivesMore.Infrastructure.Persistence.Migrations
                     b.Property<int>("IdBid")
                         .HasColumnType("int");
 
+                    b.Property<int>("IdBidder")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdOwner")
+                        .HasColumnType("int");
+
                     b.Property<DateTime?>("LastModified")
                         .HasColumnType("datetime2");
 
@@ -91,17 +99,11 @@ namespace WhoGivesMore.Infrastructure.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("UserId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("UserId1")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("IdBidder");
 
-                    b.HasIndex("UserId1");
+                    b.HasIndex("IdOwner");
 
                     b.ToTable("Items");
                 });
@@ -165,13 +167,21 @@ namespace WhoGivesMore.Infrastructure.Persistence.Migrations
 
             modelBuilder.Entity("WhoGivesMore.Core.Entities.Item", b =>
                 {
-                    b.HasOne("WhoGivesMore.Core.Entities.User", null)
+                    b.HasOne("WhoGivesMore.Core.Entities.User", "Bidder")
                         .WithMany("ItemsBidding")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("IdBidder")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
-                    b.HasOne("WhoGivesMore.Core.Entities.User", null)
+                    b.HasOne("WhoGivesMore.Core.Entities.User", "Owner")
                         .WithMany("OwnedItems")
-                        .HasForeignKey("UserId1");
+                        .HasForeignKey("IdOwner")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Bidder");
+
+                    b.Navigation("Owner");
                 });
 
             modelBuilder.Entity("WhoGivesMore.Core.Entities.Item", b =>

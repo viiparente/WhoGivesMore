@@ -6,5 +6,6 @@ namespace WhoGivesMore.Core.Repositories
     {
         Task<User> GetByIdAsync(int id);
         Task<User> GetUserByEmailAndPasswordAsync(string email, string passwordHash);
+        Task <int> Create(User inputModel);
     }
 }

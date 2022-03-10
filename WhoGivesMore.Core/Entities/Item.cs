@@ -14,8 +14,7 @@ namespace WhoGivesMore.Core.Entities
                     decimal startingPrice,
                     decimal minIncrease,
                     DateTime startTime,
-                    DateTime endTime,
-                    int idOwner)
+                    DateTime endTime)
         {
             Title = title;
             Description = description;
@@ -26,7 +25,7 @@ namespace WhoGivesMore.Core.Entities
             EndTime = endTime;
 
 
-            CreatedBy = idOwner;
+            //CreatedBy = idOwner;
             LastModified = DateTime.Now;
             Status = ItemStatusEnum.Created;
 
@@ -36,7 +35,7 @@ namespace WhoGivesMore.Core.Entities
 
         public string Title { get; private set; }
         public string Description { get; private set; }
-        public int CreatedBy { get; private set; }
+        //public int CreatedBy { get; private set; }
         public decimal StartingPrice { get; private set; }
         public decimal MinIncrease { get; private set; }
         public DateTime CreatedAt { get; private set; }
@@ -51,12 +50,12 @@ namespace WhoGivesMore.Core.Entities
         public List<Bid> Bids { get; private set; }
 
 
-        public int IdBidder { get; private set; }
-        public User Bidder { get; private set; }
+        //public int IdBidder { get; private set; }
+        //public User Bidder { get; private set; }
 
 
-        public int IdOwner { get; private set; }
-        public User Owner { get; private set; }
+        //public int IdOwner { get; private set; }
+        //public User Owner { get; private set; }
 
         public void Start()
         {
@@ -70,7 +69,7 @@ namespace WhoGivesMore.Core.Entities
             }
         }
 
-        public void Update(string title, string description, decimal startingPrice, decimal minIncrease, DateTime startTime, DateTime endTime, int idOwner)
+        public void Update(string title, string description, decimal startingPrice, decimal minIncrease, DateTime startTime, DateTime endTime/*, int idOwner*/)
         {
             Title = title;
             Description = description;
@@ -79,7 +78,7 @@ namespace WhoGivesMore.Core.Entities
             StartTime = startTime;
             EndTime = endTime;
 
-            LastModifiedBy = idOwner;
+            //LastModifiedBy = idOwner;
             LastModified = DateTime.Now;
         }
 

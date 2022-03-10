@@ -44,18 +44,23 @@ namespace WhoGivesMore.Infrastructure.Persistence.Repositories
             return await _dbContext.Items.ToListAsync();
         }
 
+        public Task<List<Bid>> GetAllBidAsync(int IdItem)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<Item> GetByIdAsync(int id)
         {
             return await _dbContext.Items
-                .Include(b => b.Bids) //TODO: Verificar
+                /*.Include(b => b.Bids)*/ //TODO: Verificar
                 .SingleOrDefaultAsync(p => p.Id == id);
         }
 
         public async Task<Item> GetDetailsByIdAsync(int id)
         {
             return await _dbContext.Items
-               .Include(p => p.Owner)
-               .Include(p => p.Bidder)
+               //.Include(p => p.Owner)
+               //.Include(p => p.Bidder)
                .Include(p => p.Bids) //TODO: verificar
                .SingleOrDefaultAsync(p => p.Id == id);
         }
@@ -63,6 +68,11 @@ namespace WhoGivesMore.Infrastructure.Persistence.Repositories
         public async Task<List<Item>> GetQueryAsync(string query)
         {
             return await _dbContext.Items.Where(b => b.Title.Equals(query, StringComparison.OrdinalIgnoreCase)).ToListAsync();
+        }
+
+        public Task<bool> IsEligibleForBid(int IdItem)
+        {
+            throw new NotImplementedException();
         }
 
         public async Task SaveChangesAsync()
