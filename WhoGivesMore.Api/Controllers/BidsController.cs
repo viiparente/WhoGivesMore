@@ -11,11 +11,11 @@ namespace WhoGivesMore.Api.Controllers
     public class BidsController : ControllerBase
     {
         private readonly IItemRepository _bidRepository;
-
         public BidsController(IItemRepository bidRepository)
         {
             _bidRepository = bidRepository;
         }
+
         [HttpPost]
         public async Task<IActionResult> Post(int itemId, CreateBidModel model)
         {
@@ -27,7 +27,7 @@ namespace WhoGivesMore.Api.Controllers
             var bid = new Bid(
                 model.Amount,
                 model.UserId,
-                model.ItemId
+                itemAuction.Id
             );
 
             await _bidRepository.AddBidAsync(bid);

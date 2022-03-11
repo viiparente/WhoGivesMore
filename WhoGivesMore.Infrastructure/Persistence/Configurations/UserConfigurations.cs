@@ -10,12 +10,6 @@ namespace WhoGivesMore.Infrastructure.Persistence.Configurations
         {
             builder
                 .HasKey(s => s.Id);
-
-            //builder
-            //    .HasMany(u => u.Bids)
-            //    .WithOne()
-            //    .HasForeignKey(u => u.IdBidder)
-            //    .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

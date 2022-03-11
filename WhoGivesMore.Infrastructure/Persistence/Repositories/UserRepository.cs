@@ -22,7 +22,11 @@ namespace WhoGivesMore.Infrastructure.Persistence.Repositories
 
         public async Task<User> GetByIdAsync(int id)
         {
-            return await _dbContext.Users.SingleOrDefaultAsync(u => u.Id == id);
+            return await _dbContext.Users
+                .Include(b => b.Bids)
+                .Include(b => b.OwnedItems)
+                .Include(b => b.ItemsBidding)
+                .SingleOrDefaultAsync(u => u.Id == id);
         }
 
         public async Task<User> GetUserByEmailAndPasswordAsync(string email, string passwordHash)

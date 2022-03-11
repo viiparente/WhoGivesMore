@@ -8,11 +8,9 @@ namespace WhoGivesMore.Infrastructure.Persistence.Repositories
     public class BidRepository : IBidRepository
     {
         private readonly WhoGivesMoreDbContext _dbContext;
-        private readonly string _connectionString;
-        public BidRepository(WhoGivesMoreDbContext dbContext, IConfiguration configuration)
+        public BidRepository(WhoGivesMoreDbContext dbContext)
         {
             _dbContext = dbContext;
-            _connectionString = configuration.GetConnectionString("WhoGivesMoreCs");
         }
         public async Task AddAsync(Bid bid)
         {

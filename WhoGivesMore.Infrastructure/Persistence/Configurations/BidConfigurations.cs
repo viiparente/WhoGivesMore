@@ -13,17 +13,11 @@ namespace WhoGivesMore.Infrastructure.Persistence.Configurations
                 .HasKey(p => p.Id);
 
             builder
-                .HasOne(i => i.Item)
-                .WithMany(b => b.Bids)
-                .HasForeignKey(i => i.IdItem)
-                .OnDelete(DeleteBehavior.Restrict)
-                /*.IsRequired() */;
+                .HasOne(p => p.Bidder)
+                .WithMany(p => p.Bids)
+                .HasForeignKey(p => p.IdBidder);
 
-            builder.HasOne(u => u.Bidder)
-                .WithMany(b => b.Bids)
-                .HasForeignKey(u => u.IdBidder)
-                .OnDelete(DeleteBehavior.Restrict)
-                /*.IsRequired() */;
+            
         }
     }
 }

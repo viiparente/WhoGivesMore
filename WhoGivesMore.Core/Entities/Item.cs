@@ -50,12 +50,12 @@ namespace WhoGivesMore.Core.Entities
         public List<Bid> Bids { get; private set; }
 
 
-        //public int IdBidder { get; private set; }
-        //public User Bidder { get; private set; }
+        public int IdBidder { get; private set; }
+        public User Bidder { get; private set; }
 
 
-        //public int IdOwner { get; private set; }
-        //public User Owner { get; private set; }
+        public int IdOwner { get; private set; }
+        public User Owner { get; private set; }
 
         public void Start()
         {

@@ -8,11 +8,9 @@ namespace WhoGivesMore.Infrastructure.Persistence.Repositories
     public class ItemRepository : IItemRepository
     {
         private readonly WhoGivesMoreDbContext _dbContext;
-        private readonly string _connectionString;
-        public ItemRepository(WhoGivesMoreDbContext dbContext, IConfiguration configuration)
+        public ItemRepository(WhoGivesMoreDbContext dbContext)
         {
             _dbContext = dbContext;
-            _connectionString = configuration.GetConnectionString("WhoGivesMoreCs"); //Para Dapper Utilizar posteriormente 
         }
 
 
@@ -52,7 +50,7 @@ namespace WhoGivesMore.Infrastructure.Persistence.Repositories
         public async Task<Item> GetByIdAsync(int id)
         {
             return await _dbContext.Items
-                /*.Include(b => b.Bids)*/ //TODO: Verificar
+                .Include(b => b.Bids) //TODO: Verificar
                 .SingleOrDefaultAsync(p => p.Id == id);
         }
 

@@ -20,10 +20,10 @@ namespace WhoGivesMore.Infrastructure
 
         public static IServiceCollection AddPersistence(this IServiceCollection services, IConfiguration configuration)
         {
-            var connectionString = configuration.GetConnectionString("WhoGivesMoreCs");
+            //var connectionString = configuration.GetConnectionString("WhoGivesMoreCs");
+            //services.AddDbContext<WhoGivesMoreDbContext>(options => options.UseSqlServer(connectionString));
 
-            services.AddDbContext<WhoGivesMoreDbContext>(options => options.UseSqlServer(connectionString));
-            //services.AddDbContext<WhoGivesMoreDbContext>(options => options.UseInMemoryDatabase("WhoGivesMore"));
+            services.AddDbContext<WhoGivesMoreDbContext>(options => options.UseInMemoryDatabase("WhoGivesMore"));
 
             return services;
         }
