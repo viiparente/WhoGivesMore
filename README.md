@@ -1,5 +1,5 @@
-# WhoGivesMore - Quem Dá Mais?
-API REST completa em .NET de gerenciamento de leilão, onde pode apresentar bens e lotes, permitindo para os interessados lances online, venda, cobrança e retiradas dos bens leiloados.
+# WhoGivesMore - Quem Dá Mais? (Em Desenvolvimento)
+API REST completa em .NET de gerenciamento de leilão, onde pode apresentar bens e lotes, permitindo para os interessados lances online, venda, cobrança e retiradas dos bens leiloados. 
 
 ### Tecnologias e práticas utilizadas
 * ASP.NET Core com .NET 6
